@@ -26,106 +26,81 @@ public class Algebra {
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
 		
-		if (x2==0){
-			return x1;
+		if (x2 > 0){
+			  while (x2-- > 0){
+				x1++;
+			  } 
 		}
-		else if (x1==0){
-			return x2;
+      
+   		else{
+			while (x2++ < 0){
+			x1--;
+			} 
 		}
-		else if(x2==0 && x1==0){
-			return 0;
-		}
-		else{
-			for(int i=0; i<x2; i++){
-						x1++;
-		}
-				return x1;
-		}
+		return x1;
+       
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		if (x2==0){
-			return x1;
-		}
-		else if (x1==0){
-			return -x2;
-		}
-		else if(x2==0 && x1==0){
-			return 0;
-		}
-		else{
-			for(int i=0; i<x2; i++){
-						x1--;
-		}
-				return x1;
-		}
+		return plus(x1, -x2);
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		int sqr=0;
-		if (x2==0 || x1==0){
-			return 0;
+		boolean negative = false;
+
+		if (x1 < 0) { x1 = -x1; negative = !negative; }
+		if (x2 < 0) { x2 = -x2; negative = !negative; }
+
+		int result = 0;
+		while (x2-- > 0) {
+			result = plus(result, x1);
 		}
 
-		else{
-			while(x1!=0){
-				sqr=plus(sqr,x2);
-				x1--;
-			}
-			return sqr;
-		}
+		return negative ? -result : result;
 	}
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
-		int x2;
-		x2=times(x, x);
-		if(n!=0){
-			while(n!=2){
-				x2= times(x2,x);
-				n--;
-			}
-			return x2;
+		if (n == 0) return 1;
+
+		int result = 1;
+		for (int i = 0; i < n; i++) {
+			result = times(result, x);
 		}
-		return 0;
+		return result;
 	}
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		int div=0;
-		while(times(x2,div+1)<=x1){
-			
-				div++;
-			
+		boolean negative = false;
+
+		if (x1 < 0) { x1 = -x1; negative = !negative; }
+		if (x2 < 0) { x2 = -x2; negative = !negative; }
+
+		int result = 0;
+		while (times(x2, result + 1) <= x1) {
+			result++;
 		}
-		return div;
+
+		return negative ? -result : result;
 	}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
-		int div = div(x1, x2);
-		int modo=0;
-		if(div*x2!=x1){
-			int loop= x2-div;
-			for(int i=0; i<loop;i++){
-				modo++;
-			}
-		}
-		return modo;
+		return minus(x1, times(x2, div(x1, x2)));
+
 	}	
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
 		
-		for(int i=2; i<x;i++){
-			if(div(x,i)==i){
-				return i;
-			}
-			
+		int i = 0;
+		while (times(i, i) <= x) {
+			i++;
 		}
-		return 0;
+		return i - 1;
 	}
 		
 	}	  	  

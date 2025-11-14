@@ -55,7 +55,7 @@ public class Anagram {
 		String newstr=""; 
 		int length = str.length();
 		for(int i=0; i<length;i++){
-			if(Character.isLetter(str.charAt(i))){
+			if(Character.isLetter(str.charAt(i))||str.charAt(i)==' '){
 				newstr = newstr+str.charAt(i);
 			}
 			else{
@@ -68,11 +68,17 @@ public class Anagram {
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		str=preProcess(str);
+		 str = preProcess(str);
+    	char[] arr = str.toCharArray();
+    	java.util.Random rand = new java.util.Random();
 
-		char[] arr1 = str.toCharArray();
-		Arrays.sort(arr1);
-		String n = new String(arr1);
-		return n;
+		for (int i = arr.length - 1; i > 0; i--) {
+			int j = rand.nextInt(i + 1);
+			char tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
+		}
+
+		return new String(arr);
 	}
 }
