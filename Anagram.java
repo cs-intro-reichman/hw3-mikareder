@@ -55,12 +55,10 @@ public class Anagram {
 		String newstr=""; 
 		int length = str.length();
 		for(int i=0; i<length;i++){
-			if(Character.isLetter(str.charAt(i))||str.charAt(i)==' '){
-				newstr = newstr+str.charAt(i);
+			if(Character.isLetter(str.charAt(i))){
+				newstr+=str.charAt(i);
 			}
-			else{
-				continue;
-			}
+			
 		}
 		return newstr;
 	} 
