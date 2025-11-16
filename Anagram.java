@@ -51,16 +51,16 @@ public class Anagram {
 	// to lower-case, and all the other characters are deleted.
 	// For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		str=str.toLowerCase(); 
-		String newstr=""; 
-		int length = str.length();
-		for(int i=0; i<length;i++){
-			if(Character.isLetter(str.charAt(i))){
-				newstr+=str.charAt(i);
+		 str = str.toLowerCase();
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			if (Character.isLetter(c)) {
+				sb.append(c);
 			}
-			
 		}
-		return newstr;
+		return sb.toString();
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same

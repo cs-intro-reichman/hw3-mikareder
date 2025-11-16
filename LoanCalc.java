@@ -31,7 +31,7 @@ public class LoanCalc {
 		double precentage=(rate/100.0);
 		
 		for(int i=0; i<n; i++){
-			balance=(balance -payment) * (1+precentage);
+			balance=(balance * (1+precentage) -payment) ;
 		}
 		return balance;
 	}
