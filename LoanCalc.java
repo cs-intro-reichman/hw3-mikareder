@@ -1,7 +1,7 @@
 // Computes the periodical payment necessary to pay a given loan.
 public class LoanCalc {
 	
-	static double epsilon = 0.01;  // Approximation accuracy
+	static double epsilon = 0.001;  // Approximation accuracy
 	static int iterationCounter;    // Number of iterations 
 	
 	// Gets the loan data and computes the periodical payment.
@@ -31,7 +31,7 @@ public class LoanCalc {
 		double precentage=(rate/100.0);
 		
 		for(int i=0; i<n; i++){
-			balance=(balance * (1+precentage) -payment) ;
+			balance=(balance - payment)* (1+precentage)  ;
 		}
 		return balance;
 	}
@@ -44,9 +44,9 @@ public class LoanCalc {
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		 double payment = 0; 
 		iterationCounter = 0;
+		double maxPayment = loan * n; 
 		
-		
-		while (endBalance(loan, rate, n, payment) > 0) {
+		while (payment <= maxPayment && endBalance(loan, rate, n, payment) > 0) {
 			payment += epsilon;
 			iterationCounter++;
 		}
@@ -63,7 +63,7 @@ public class LoanCalc {
     	 iterationCounter = 0;
 
         double low = 0;
-        double high = loan;
+        double high = loan*n;
         double mid = 0;
 
         while (high - low > epsilon) {
