@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /** Functions for checking if a given string is an anagram. */
 public class Anagram {
 	public static void main(String args[]) {
@@ -28,22 +30,53 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+		str1 = preProcess(str1);
+    	str2 = preProcess(str2);
+    
+    	if (str1.length() != str2.length()) {
+        return false;
+    	}
+    
+		char[] arr1 = str1.toCharArray();
+		char[] arr2 = str2.toCharArray();
+		
+		Arrays.sort(arr1);
+		Arrays.sort(arr2);
+		
+		return Arrays.equals(arr1, arr2);
 	}
 	   
+	
 	// Returns a preprocessed version of the given string: all the letter characters are converted
-	// to lower-case, and all the other characters are deleted, except for spaces, which are left
-	// as is. For example, the string "What? No way!" becomes "whatnoway"
+	// to lower-case, and all the other characters are deleted.
+	// For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+		 str = str.toLowerCase();
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			if (Character.isLetter(c)) {
+				sb.append(c);
+			}
+		}
+		return sb.toString();
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		 str = preProcess(str);
+    	char[] arr = str.toCharArray();
+    	java.util.Random rand = new java.util.Random();
+
+		for (int i = arr.length - 1; i > 0; i--) {
+			int j = rand.nextInt(i + 1);
+			char tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
+		}
+
+		return new String(arr);
 	}
 }
